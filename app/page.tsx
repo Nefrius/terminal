@@ -89,7 +89,7 @@ export default function Home() {
     }, 4500)
 
     return () => clearTimeout(timer)
-  }, [])
+  }, [calculateCenterPosition])
 
   const addNewTerminal = () => {
     const position = calculateCenterPosition()

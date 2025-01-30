@@ -45,7 +45,7 @@ export default function Loading() {
       isMounted = false
       clearInterval(interval)
     }
-  }, [])
+  }, [services])
 
   if (loadingDone) return null
 
