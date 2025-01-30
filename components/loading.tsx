@@ -22,20 +22,29 @@ export default function Loading() {
 
   useEffect(() => {
     let currentIndex = 0
+    let isMounted = true
+
     const interval = setInterval(() => {
+      if (!isMounted) return
+
       if (currentIndex < services.length) {
         setCurrentService(services[currentIndex])
         setProgress((currentIndex + 1) * (100 / services.length))
         currentIndex++
       } else {
         clearInterval(interval)
-        setTimeout(() => {
-          setLoadingDone(true)
-        }, 500)
+        if (isMounted) {
+          setTimeout(() => {
+            setLoadingDone(true)
+          }, 500)
+        }
       }
     }, 400)
 
-    return () => clearInterval(interval)
+    return () => {
+      isMounted = false
+      clearInterval(interval)
+    }
   }, [])
 
   if (loadingDone) return null

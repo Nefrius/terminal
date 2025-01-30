@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import Image from 'next/image'
+import { useState, useEffect } from 'react'
 
 interface NavbarProps {
   onOpenTerminal: () => void
@@ -70,7 +69,7 @@ export default function Navbar({ onOpenTerminal }: NavbarProps) {
 function Clock() {
   const [time, setTime] = useState(new Date())
 
-  useState(() => {
+  useEffect(() => {
     const timer = setInterval(() => {
       setTime(new Date())
     }, 1000)

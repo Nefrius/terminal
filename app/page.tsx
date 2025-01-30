@@ -64,8 +64,18 @@ export default function Home() {
 
   // Ekran boyutu değiştiğinde terminal pozisyonunu güncelle
   useEffect(() => {
-    window.addEventListener('resize', updateTerminalPosition)
-    return () => window.removeEventListener('resize', updateTerminalPosition)
+    const handleResize = () => {
+      const position = calculateCenterPosition()
+      setTerminals(prev => prev.map(terminal => {
+        if (terminal.id === 1) {
+          return { ...terminal, x: position.x, y: position.y }
+        }
+        return terminal
+      }))
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   useEffect(() => {
