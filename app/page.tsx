@@ -51,17 +51,6 @@ export default function Home() {
     }
   }
 
-  // Terminal state'ini güncelleyen fonksiyon
-  const updateTerminalPosition = () => {
-    const position = calculateCenterPosition()
-    setTerminals(prev => prev.map(terminal => {
-      if (terminal.id === 1) {
-        return { ...terminal, x: position.x, y: position.y }
-      }
-      return terminal
-    }))
-  }
-
   // Ekran boyutu değiştiğinde terminal pozisyonunu güncelle
   useEffect(() => {
     const handleResize = () => {

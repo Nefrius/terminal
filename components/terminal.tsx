@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import Draggable, { DraggableEventHandler } from 'react-draggable'
+import Draggable, { DraggableEventHandler, DraggableData, DraggableEvent } from 'react-draggable'
 
 interface Command {
   command: string
@@ -150,7 +150,7 @@ export default function Terminal({
   
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const nodeRef = useRef<HTMLDivElement>(null)
+  const nodeRef = useRef<HTMLDivElement>(document.createElement('div'))
 
   // Başlangıç mesajı animasyonu
   useEffect(() => {
@@ -182,7 +182,7 @@ export default function Terminal({
     }
   }, [history])
 
-  const handleDrag: DraggableEventHandler = (_e, data) => {
+  const handleDrag: DraggableEventHandler = (e: DraggableEvent, data: DraggableData) => {
     const newPosition = { x: data.x, y: data.y }
     setCurrentPosition(newPosition)
     onPositionChange?.(newPosition.x, newPosition.y)
