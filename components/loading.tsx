@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 
 export default function Loading() {
   const [progress, setProgress] = useState(0)
   const [currentService, setCurrentService] = useState('')
   const [loadingDone, setLoadingDone] = useState(false)
 
-  const services = [
+  const services = useMemo(() => [
     'Starting Kali Linux Desktop...',
     'Loading system configuration...',
     'Starting network services...',
@@ -18,7 +18,7 @@ export default function Loading() {
     'Starting SSH server...',
     'Configuring network interfaces...',
     'System initialization complete.'
-  ]
+  ], [])
 
   useEffect(() => {
     let currentIndex = 0
@@ -45,7 +45,7 @@ export default function Loading() {
       isMounted = false
       clearInterval(interval)
     }
-  }, [services])
+  }, [])
 
   if (loadingDone) return null
 

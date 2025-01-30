@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Terminal from '@/components/terminal'
 import Navbar from '@/components/navbar'
 import Loading from '@/components/loading'
@@ -30,7 +30,7 @@ export default function Home() {
   const [showNavbar, setShowNavbar] = useState(false)
   const [showIcons, setShowIcons] = useState(false)
 
-  const calculateCenterPosition = () => {
+  const calculateCenterPosition = useMemo(() => () => {
     if (typeof window === 'undefined') return { x: 0, y: 0 }
     
     const screenWidth = window.innerWidth
@@ -49,7 +49,7 @@ export default function Home() {
       x: centerX,
       y: centerY
     }
-  }
+  }, [])
 
   // Ekran boyutu değiştiğinde terminal pozisyonunu güncelle
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function Home() {
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [calculateCenterPosition])
 
   useEffect(() => {
     const timer = setTimeout(() => {
